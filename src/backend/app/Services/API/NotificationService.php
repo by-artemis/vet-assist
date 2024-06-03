@@ -103,7 +103,7 @@ class NotificationService
         $count = $query->update(['read_at' => Carbon::now()]);
 
         if (0 === $count) {
-            throw new Exception('Notification not found.');
+            throw new Exception(__('exception.not_found', ['model' => 'Notification']));
         }
 
         return true;

@@ -12,7 +12,7 @@ class UserStatusNotFoundException extends Exception
      */
     public function __construct()
     {
-        $message = __('exception.user_status_not_found');
+        $message = __('exception.not_found', ['model' => 'User Status']);
         parent::__construct($message);
     }
 }

@@ -7,6 +7,7 @@ use Throwable;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\Exceptions\OAuthServerException;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -66,6 +67,12 @@ class Handler extends ExceptionHandler
                 // laravel passport error
                 if ($exception instanceof OAuthServerException) {
                     $code = $exception->statusCode();
+                }
+
+                // ACL Exception error
+                if ($exception instanceof UnauthorizedException) {
+                    $error = __('exception.unauthorized');
+                    $code = 403;
                 }
 
                 return response()->json(

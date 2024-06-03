@@ -102,7 +102,7 @@ class UserServiceTest extends TestCase
     public function testInvalidActivateByToken()
     {
         $this->expectException('App\Exceptions\ActivationTokenNotFoundException');
-        $this->expectExceptionMessage('Invalid/Expired Activation Token.');
+        $this->expectExceptionMessage(__('exception.activation_token_not_found'));
 
         $this->service->activate([
             'token' => 'some random string',
@@ -130,7 +130,7 @@ class UserServiceTest extends TestCase
     public function testFindByEmailUserNotFound()
     {
         $this->expectException('App\Exceptions\UserNotFoundException');
-        $this->expectExceptionMessage('Unable to retrieve user.');
+        $this->expectExceptionMessage(__('exception.not_found', ['model' => 'User']));
 
         $this->service->findByEmail('sample@mail.com');
     }
@@ -147,7 +147,7 @@ class UserServiceTest extends TestCase
     public function testFindbyIdUserNotFound()
     {
         $this->expectException('App\Exceptions\UserNotFoundException');
-        $this->expectExceptionMessage('Unable to retrieve user.');
+        $this->expectExceptionMessage(__('exception.not_found', ['model' => 'User']));
 
         $this->service->findById(999999);
     }
@@ -217,7 +217,7 @@ class UserServiceTest extends TestCase
     public function testDeleteNonExistingUser()
     {
         $this->expectException('App\Exceptions\UserNotFoundException');
-        $this->expectExceptionMessage('Unable to retrieve user.');
+        $this->expectExceptionMessage(__('exception.not_found', ['model' => 'User']));
 
         $this->service->delete(999999999);
     }

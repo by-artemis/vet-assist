@@ -52,7 +52,7 @@ class NotificationSeenTest extends TestCase
                         ->json('PUT', $url);
         $response->assertStatus(500)
             ->assertJson([
-                'error' => 'Notification not found.',
+                'error' => __('exception.not_found', ['model' => 'Notification']),
             ]);
     }
 

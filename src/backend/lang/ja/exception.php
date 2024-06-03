@@ -8,8 +8,7 @@ return [
     'invalid_user_password' => 'ユーザーパスワードが無効です。',
     'user_locked' => 'アカウントがロックアウトされました。パスワードをリセットしてください。',
     'user_not_created' => 'ユーザーを作成できません。',
-    'user_not_found' => 'ユーザーを取得できません。',
     'user_pending' => '電子メールは確認されていません。',
-    'user_status_not_found' => 'ステータスの取得ができません。',
-    'role_not_found' => 'ロールを取得できません。',
+    'unauthorized' => '必要な権限がありません。',
+    'not_found' => ':model が見つかりません。',
 ];

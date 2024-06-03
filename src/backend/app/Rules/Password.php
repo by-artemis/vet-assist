@@ -32,6 +32,6 @@ class Password implements Rule
      */
     public function message(): string
     {
-        return 'Password must contain the following: 1 uppercase, 1 special character and a minimum of 8 characters.';
+        return __('validation.strong_password', ['attribute' => 'password']);
     }
 }

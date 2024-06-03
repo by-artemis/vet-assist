@@ -39,7 +39,7 @@ class PasswordService
     public function forgot(string $email): PasswordResetToken
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException('Invalid email address.');
+            throw new InvalidArgumentException(__('validation.regex', ['attribute' => 'email']));
         }
 
         // check if user exists

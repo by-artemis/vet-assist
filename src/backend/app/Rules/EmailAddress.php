@@ -24,6 +24,6 @@ class EmailAddress implements Rule
      */
     public function message(): string
     {
-        return 'Invalid email address.';
+        return __('validation.regex', ['attribute' => 'email']);
     }
 }

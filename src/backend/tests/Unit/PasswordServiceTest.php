@@ -57,7 +57,7 @@ class PasswordServiceTest extends TestCase
     public function testforgotWithInvalidEmail()
     {
         $this->expectException('InvalidArgumentException');
-        $this->expectExceptionMessage('Invalid email address.');
+        $this->expectExceptionMessage(__('validation.regex', ['attribute' => 'email']));
 
         $this->passwordService->forgot('notAnEmail');
     }
@@ -65,7 +65,7 @@ class PasswordServiceTest extends TestCase
     public function testforgotWithNonExistingUser()
     {
         $this->expectException('App\Exceptions\UserNotFoundException');
-        $this->expectExceptionMessage('Unable to retrieve user.');
+        $this->expectExceptionMessage(__('exception.not_found', ['model' => 'User']));
 
         $this->passwordService->forgot('me@test.com');
     }
@@ -104,7 +104,7 @@ class PasswordServiceTest extends TestCase
     public function testResetInvalidExpiredToken()
     {
         $this->expectException('App\Exceptions\InvalidPasswordResetTokenException');
-        $this->expectExceptionMessage('Invalid/Expired Password Reset Token.');
+        $this->expectExceptionMessage(__('exception.invalid_password_reset_token'));
 
         $this->passwordService->reset([
             'token' => '12345adsfr1234',

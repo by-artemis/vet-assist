@@ -52,7 +52,7 @@ class BulkDeleteUserTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'ids' => ['The ids field is required.']
+                    'ids' => [__('validation.required', ['attribute' => 'ids'])]
                 ]
             ]);
     }

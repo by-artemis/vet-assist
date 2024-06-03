@@ -15,7 +15,7 @@ class RoleNotFoundException extends Exception
      */
     public function __construct()
     {
-        $message = __('exception.role_not_found');
+        $message = __('exception.not_found', ['model' => 'Role']);
         parent::__construct($message);
     }
 }
