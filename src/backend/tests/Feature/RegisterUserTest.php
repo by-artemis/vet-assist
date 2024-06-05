@@ -37,7 +37,7 @@ class RegisterUserTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['The email field is required.'],
+                    'email' => [__('validation.required', ['attribute' => 'email'])],
                 ]
             ]);
     }
@@ -56,7 +56,7 @@ class RegisterUserTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['Invalid email address.'],
+                    'email' => [__('validation.regex', ['attribute' => 'email'])],
                 ]
             ]);
     }
@@ -87,7 +87,7 @@ class RegisterUserTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['The email has already been taken.'],
+                    'email' => [__('validation.unique', ['attribute' => 'email'])],
                 ]
             ]);
     }

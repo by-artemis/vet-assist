@@ -62,7 +62,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'first_name' => ['The first name field is required.']
+                    'first_name' => [__('validation.required', ['attribute' => 'first name'])]
                 ]
             ]);
     }
@@ -76,7 +76,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['Invalid email address.']
+                    'email' => [__('validation.regex', ['attribute' => 'email'])]
                 ]
             ]);
     }
@@ -90,7 +90,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['The email has already been taken.']
+                    'email' => [__('validation.unique', ['attribute' => 'email'])]
                 ]
             ]);
     }
@@ -124,7 +124,7 @@ class UserCRUDTest extends TestCase
                         ->json('POST', '/' . config('app.api_version') . '/users', $this->data);
         $response->assertStatus(403)
             ->assertJSON([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 
@@ -164,7 +164,7 @@ class UserCRUDTest extends TestCase
                         ->json('GET', '/' . config('app.api_version') . '/users/' . self::$USER->id);
         $response->assertStatus(403)
             ->assertJSON([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 
@@ -177,7 +177,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'first_name' => ['The first name field is required.'],
+                    'first_name' => [__('validation.required', ['attribute' => 'first name'])],
                 ],
             ]);
     }
@@ -191,7 +191,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['Invalid email address.'],
+                    'email' => [__('validation.regex', ['attribute' => 'email'])],
                 ],
             ]);
     }
@@ -205,7 +205,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['The email has already been taken.'],
+                    'email' => [__('validation.unique', ['attribute' => 'email'])],
                 ],
             ]);
     }
@@ -219,7 +219,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'password' => ['Password must contain the following: 1 uppercase, 1 special character and a minimum of 8 characters.'],
+                    'password' => [__('validation.strong_password', ['attribute' => 'password'])],
                 ],
             ]);
     }
@@ -234,8 +234,8 @@ class UserCRUDTest extends TestCase
             ->assertJson([
                 'error' => [
                     'avatar' => [
-                        'The avatar must be an image.',
-                        'The avatar must be a file of type: jpeg, png, jpg, gif.'
+                        __('validation.image', ['attribute' => 'avatar']),
+                        __('validation.mimes', ['attribute' => 'avatar', 'values' => 'jpeg, png, jpg, gif'])
                     ],
                 ],
             ]);
@@ -250,7 +250,7 @@ class UserCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'avatar' => ['The avatar must not be greater than 2048 kilobytes.'],
+                    'avatar' => [__('validation.max.file', ['attribute' => 'avatar', 'max' => 2048])],
                 ],
             ]);
     }
@@ -300,7 +300,7 @@ class UserCRUDTest extends TestCase
                         ->json('PUT', '/' . config('app.api_version') . '/users/' . self::$USER->id, $params);
         $response->assertStatus(403)
             ->assertJSON([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 
@@ -375,7 +375,7 @@ class UserCRUDTest extends TestCase
                         ->json('DELETE', '/' . config('app.api_version') . '/users/' . self::$USER->id);
         $response->assertStatus(403)
             ->assertJSON([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 }

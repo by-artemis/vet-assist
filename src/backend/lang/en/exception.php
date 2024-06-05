@@ -8,8 +8,7 @@ return [
     'invalid_user_password' => 'Invalid User password.',
     'user_locked' => 'Your account has been locked out, please reset your password.',
     'user_not_created' => 'Unable to create user.',
-    'user_not_found' => 'Unable to retrieve user.',
     'user_pending' => 'Email has not been verified.',
-    'user_status_not_found' => 'Unable to retrieve status.',
-    'role_not_found' => 'Unable to retrieve role.',
+    'unauthorized' => 'You do not have the required privileges.',
+    'not_found' => ':model not found.',
 ];

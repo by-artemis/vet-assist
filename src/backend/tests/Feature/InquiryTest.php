@@ -52,7 +52,7 @@ class InquiryTest extends TestCase
             $response->assertStatus(422)
                 ->assertJson([
                     'error' => [
-                        $key => ["The $key field is required."],
+                        $key => [__('validation.required', ['attribute' => $key])],
                     ]
                 ]);
         }
@@ -66,7 +66,7 @@ class InquiryTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['Invalid email address.'],
+                    'email' => [__('validation.regex', ['attribute' => 'email'])],
                 ]
             ]);
     }

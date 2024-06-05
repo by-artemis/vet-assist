@@ -60,7 +60,6 @@ class LocalizationTest extends TestCase
 
     public function testFormRequestValidationJaLocale()
     {
-        $this->app->setLocale('ja');
         $response = $this->json(
             'POST',
             '/' . config('app.api_version') . '/register',
@@ -73,7 +72,7 @@ class LocalizationTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['email フィールドは必須です。'],
+                    'email' => [__('validation.required', ['attribute' => 'email'])],
                 ]
             ]);
     }

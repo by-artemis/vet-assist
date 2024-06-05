@@ -124,6 +124,7 @@ return [
     ],
     'starts_with' => ':attribute は、次のいずれかで始まる必要があります: :values。',
     'string' => ':attribute は文字列でなければなりません。',
+    'strong_password' => ':attribute には以下を含めなければならない： 大文字1文字、特殊文字1文字、8文字以上。',
     'timezone' => ':attribute は有効なタイムゾーンでなければなりません。',
     'unique' => ':attribute は既に取得されています。',
     'uploaded' => ':attribute のアップロードに失敗しました。',

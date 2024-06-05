@@ -40,7 +40,7 @@ class PermissionSearchTest extends TestCase
                 ->json('GET', '/' . config('app.api_version') . '/permissions');
         $response->assertStatus(403)
             ->assertJsonFragment([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 

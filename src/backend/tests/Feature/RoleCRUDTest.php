@@ -54,7 +54,7 @@ class RoleCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'name' => ['The name field is required.']
+                    'name' => [__('validation.required', ['attribute' => 'name'])]
                 ]
             ]);
     }
@@ -65,7 +65,7 @@ class RoleCRUDTest extends TestCase
                         ->json('POST', '/v1/roles', $this->data);
         $response->assertStatus(403)
             ->assertJsonFragment([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 
@@ -111,7 +111,7 @@ class RoleCRUDTest extends TestCase
                         ->json('GET', '/v1/roles/' . self::$ROLES[0]);
         $response->assertStatus(403)
             ->assertJsonFragment([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 
@@ -121,7 +121,7 @@ class RoleCRUDTest extends TestCase
                         ->json('GET', '/v1/roles/999999999');
         $response->assertStatus(500)
             ->assertJsonFragment([
-                'error' => 'Unable to retrieve role.',
+                'error' => __('exception.not_found', ['model' => 'Role']),
             ]);
     }
 
@@ -144,7 +144,7 @@ class RoleCRUDTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'name' => ['The name field is required.']
+                    'name' => [__('validation.required', ['attribute' => 'name'])]
                 ]
             ]);
     }
@@ -155,7 +155,7 @@ class RoleCRUDTest extends TestCase
                         ->json('PUT', '/v1/roles/' . self::$ROLES[0], $this->data);
         $response->assertStatus(403)
                 ->assertJsonFragment([
-                    'error' => 'User does not have the right roles.',
+                    'error' => __('exception.unauthorized'),
                 ]);
     }
 
@@ -206,7 +206,7 @@ class RoleCRUDTest extends TestCase
                         ->json('DELETE', '/v1/roles/' . self::$ROLES[0]);
         $response->assertStatus(403)
             ->assertJsonFragment([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 
@@ -216,7 +216,7 @@ class RoleCRUDTest extends TestCase
                         ->json('DELETE', '/v1/roles/999999999');
         $response->assertStatus(500)
             ->assertJsonFragment([
-                'error' => 'Unable to retrieve role.',
+                'error' => __('exception.not_found', ['model' => 'Role']),
             ]);
     }
 

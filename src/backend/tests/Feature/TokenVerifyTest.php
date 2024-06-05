@@ -52,7 +52,7 @@ class TokenVerifyTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'type' => ['The type field is required.'],
+                    'type' => [__('validation.required', ['attribute' => 'type'])],
                 ]
             ]);
     }
@@ -63,7 +63,7 @@ class TokenVerifyTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'token' => ['The token field is required.'],
+                    'token' => [__('validation.required', ['attribute' => 'token'])],
                 ]
             ]);
     }
@@ -74,7 +74,7 @@ class TokenVerifyTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'type' => ['The selected type is invalid.'],
+                    'type' => [__('validation.enum', ['attribute' => 'type'])],
                 ]
             ]);
     }

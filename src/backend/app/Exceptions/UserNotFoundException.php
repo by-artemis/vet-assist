@@ -15,7 +15,7 @@ class UserNotFoundException extends Exception
      */
     public function __construct()
     {
-        $message = __('exception.user_not_found');
+        $message = __('exception.not_found', ['model' => 'User']);
         parent::__construct($message);
     }
 }

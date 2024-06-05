@@ -62,7 +62,7 @@ class ForgotResetPasswordTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['The email field is required.']
+                    'email' => [__('validation.required', ['attribute' => 'email'])]
                 ]
             ]);
     }
@@ -73,7 +73,7 @@ class ForgotResetPasswordTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'email' => ['Invalid email address.']
+                    'email' => [__('validation.regex', ['attribute' => 'email'])]
                 ]
             ]);
     }
@@ -107,7 +107,7 @@ class ForgotResetPasswordTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'token' => ['The token field is required.']
+                    'token' => [__('validation.required', ['attribute' => 'token'])]
                 ]
             ]);
     }
@@ -145,7 +145,7 @@ class ForgotResetPasswordTest extends TestCase
         $response->assertStatus(422)
             ->assertJson([
                 'error' => [
-                    'password' => ['Password must contain the following: 1 uppercase, 1 special character and a minimum of 8 characters.'],
+                    'password' => [__('validation.strong_password', ['attribute' => 'password'])],
                 ]
             ]);
     }

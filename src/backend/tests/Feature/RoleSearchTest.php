@@ -152,7 +152,7 @@ class RoleSearchTest extends TestCase
                 ->json('GET', '/' . config('app.api_version') . '/roles');
         $response->assertStatus(403)
             ->assertJsonFragment([
-                'error' => 'User does not have the right roles.',
+                'error' => __('exception.unauthorized'),
             ]);
     }
 }
