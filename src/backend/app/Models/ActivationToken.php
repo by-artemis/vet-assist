@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ActivationToken extends Model
 {
@@ -16,7 +17,7 @@ class ActivationToken extends Model
     /**
      * Retrieves the User of the Activation token
      *
-     * @return App\Models\User
+     * @return BelongsTo
      */
     public function user()
     {

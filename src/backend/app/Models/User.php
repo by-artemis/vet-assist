@@ -6,6 +6,8 @@ namespace App\Models;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -24,13 +26,12 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'name',
         'email',
+        'username',
         'password',
-        'user_status_id',
-        'avatar',
         'email_verified_at',
         'login_attempts',
+        'user_status_id',
     ];
 
     /**
@@ -60,7 +61,7 @@ class User extends Authenticatable
     public $guard_name = 'api';
 
     /**
-     * Get the user's full name.
+     * Gets the user's full name
      *
      * @return string
      */
@@ -70,9 +71,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Retrieves all activation tokens of the user
+     * Gets all activation tokens of the user
      *
-     * @return App\Models\ActivationToken[]
+     * @return HasMany
      */
     public function activationTokens()
     {
@@ -80,9 +81,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Retrieves the Status of the User
+     * Gets the status that belong to the user
      *
-     * @return App\Models\UserStatus
+     * @return BelongsTo
      */
     public function status()
     {
