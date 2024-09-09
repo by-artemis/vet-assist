@@ -6,6 +6,7 @@ namespace App\Models;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -88,5 +89,75 @@ class User extends Authenticatable
     public function status()
     {
         return $this->belongsTo(UserStatus::class, 'user_status_id');
+    }
+
+    /**
+     * Gets the role of the user
+     *
+     * @return HasOne
+     */
+    public function userRole(): HasOne
+    {
+        return $this->hasOne(UserRole::class);
+    }
+
+    /**
+     * Gets the type of the user
+     *
+     * @return HasOne
+     */
+    public function userType(): HasOne
+    {
+        return $this->hasOne(UserType::class);
+    }
+
+    /**
+     * Gets the details of the user
+     *
+     * @return HasOne
+     */
+    public function userDetail(): HasOne
+    {
+        return $this->hasOne(UserDetail::class);
+    }
+
+    /**
+     * Gets the pets that belong to the user
+     *
+     * @return HasMany
+     */
+    public function pets(): HasMany
+    {
+        return $this->hasMany(Pet::class, 'owner_id');
+    }
+
+    /**
+     * Gets the vet clinic favorites that belong to the user
+     *
+     * @return HasMany
+     */
+    public function favoriteClinics(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    /**
+     * Gets the vet clinic reviews that belong to the user
+     *
+     * @return HasMany
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Gets the user visit to the vet clinic
+     *
+     * @return HasOne
+     */
+    public function userClinicVisit(): HasOne
+    {
+        return $this->hasOne(UserClinicVisit::class);
     }
 }

@@ -32,7 +32,7 @@ class Clinic extends Model
      */
     public function address(): HasOne
     {
-        return $this->hasOne(ClinicAddress::class);
+        return $this->hasOne(ClinicLocation::class);
     }
 
     /**
@@ -92,7 +92,7 @@ class Clinic extends Model
      */
     public function petVaccines(): HasMany
     {
-        return $this->hasMany(ClinicAddress::class);
+        return $this->hasMany(ClinicLocation::class);
     }
 
     /**

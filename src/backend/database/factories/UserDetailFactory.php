@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserDetail>
  */
-class RoleFactory extends Factory
+class UserDetailFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,9 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->jobTitle(),
-            'guard_name' => 'api',
+            'avatar' => fake()->imageUrl(),
+            'phone_number' => fake()->phoneNumber(),
+            'address' => fake()->address(),
         ];
     }
 }
