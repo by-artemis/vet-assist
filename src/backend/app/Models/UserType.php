@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ClinicAddress extends Model
+class UserType extends Model
 {
     use HasFactory;
 
@@ -16,20 +16,17 @@ class ClinicAddress extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'latitude',
-        'longitude',
-        'city',
-        'country',
-        'zip_code',
+        'type',
     ];
 
     /**
-     * Gets the address that belongs to the vet clinic
+     * Gets the user type that belongs to the user
+     * <"customer", "clinic_owner">
      *
      * @return BelongsTo
      */
-    public function clinic(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Clinic::class, 'clinic_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

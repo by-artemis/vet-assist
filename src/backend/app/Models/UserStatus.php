@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserStatus extends Model
 {
@@ -19,7 +20,7 @@ class UserStatus extends Model
     /**
      * Retrieve all Users under this status
      *
-     * @return App\Models\User[]
+     * @return HasMany
      */
     public function users()
     {

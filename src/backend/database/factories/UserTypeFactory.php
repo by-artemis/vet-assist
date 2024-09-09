@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserType>
  */
-class RoleFactory extends Factory
+class UserTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +18,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->jobTitle(),
-            'guard_name' => 'api',
+            'type' => fake()->randomElement(['customer', 'clinic_owner']),
         ];
     }
 }

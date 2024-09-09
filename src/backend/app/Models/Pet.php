@@ -39,11 +39,11 @@ class Pet extends Model
     /**
      * Gets the details of the pet
      *
-     * @return HasMany
+     * @return HasOne
      */
-    public function details(): HasMany
+    public function details(): HasOne
     {
-        return $this->hasMany(PetDetail::class);
+        return $this->hasOne(PetDetail::class);
     }
 
     /**
