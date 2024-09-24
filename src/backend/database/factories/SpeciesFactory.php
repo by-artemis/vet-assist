@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserClinicVisit>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Species>
  */
-class UserClinicVisitFactory extends Factory
+class SpeciesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,9 @@ class UserClinicVisitFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->randomElement([
+                'Cat', 'Dog', 'Rabbit', 'Hamster', 'Guinea Pig', 'Bird', 'Fish', 'Spider'
+            ]),
         ];
     }
 }

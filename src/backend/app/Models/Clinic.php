@@ -20,7 +20,11 @@ class Clinic extends Model
     protected $fillable = [
         'name',
         'address',
+        'office_hours',
+        'is_24_7',
         'phone_number',
+        'logo',
+        'photos',
         'website',
         'description',
     ];

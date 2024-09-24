@@ -17,14 +17,14 @@ return new class extends Migration
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')
                 ->references('id')
-                ->on('users')
+                ->on('owners')
                 ->onDelete('cascade');
 
             $table->string('name');
-            $table->date('birthdate');
             $table->string('gender');
             $table->string('species');
             $table->string('breed')->nullable();
+            $table->string('photo')->nullable();
             $table->boolean('is_microchipped')->default(0);
 
             $table->timestamps();

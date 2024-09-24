@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { logout } from 'services/auth';
@@ -11,7 +11,9 @@ import api from 'utils/api';
 export default function User() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.profile.user);
+  const toggleDrawer = () => setOpen(!open);
 
   const handleLogout = async () => {
     await logout();
@@ -39,7 +41,7 @@ export default function User() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-      <Navbar open={open} onLogout={() => handleLogout()} user={user} />
+      <Navbar open={open} onToggle={toggleDrawer} onLogout={() => handleLogout()} user={user} />
 
       <Box
         component="main"

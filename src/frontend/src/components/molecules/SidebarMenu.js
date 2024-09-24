@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-import CampaignIcon from '@mui/icons-material/Campaign';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LayersIcon from '@mui/icons-material/Layers';
 import PeopleIcon from '@mui/icons-material/People';
+import PetsIcon from '@mui/icons-material/Pets';
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -26,11 +26,10 @@ const links = [
     path: '/admin/roles',
     icon: <RoomPreferencesIcon />,
   },
-  // DEMO PURPOSES ONLY. REMOVE ON ACTUAL PROJECT
   {
-    label: 'Broadcast',
-    path: '/admin/broadcast',
-    icon: <CampaignIcon />,
+    label: 'Pets',
+    path: '/pets',
+    icon: <PetsIcon />,
   },
   {
     label: 'Integrations',
@@ -60,7 +59,7 @@ function SidebarMenu() {
             to={item.path}
             selected={location.pathname === item.path}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemIcon sx={{ marginLeft: '5px' }}>{item.icon}</ListItemIcon>
             <ListItemText primary={<Typography variant="body2">{item.label}</Typography>} />
           </ListItemButton>
         );

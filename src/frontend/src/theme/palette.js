@@ -4,27 +4,27 @@
  */
 const palette = {
   primary: {
-    main: '#058ED9',
+    main: '#4ECDC4',
     contrastText: '#fff',
   },
   secondary: {
-    main: '#D14081',
+    main: '#40605D',
     contrastText: '#fff',
   },
   success: {
-    main: '#70A37F',
+    main: '#8DDFB2',
     contrastText: '#fff',
   },
   error: {
-    main: '#FE6D73',
+    main: '#D05738',
     contrastText: '#fff',
   },
   warning: {
-    main: '#F3C969',
+    main: '#F1C76B',
     contrastText: '#fff',
   },
   info: {
-    main: '#9DD1F1',
+    main: '#B5D8B5',
     contrastText: '#fff',
   },
   transparent: {

@@ -26,5 +26,6 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(now()->addDays(env('PASSPORT_ACCESS_TOKEN_EXPIRY_DAYS', 15)));
         Passport::refreshTokensExpireIn(now()->addDays(env('PASSPORT_ACCESS_TOKEN_EXPIRY_DAYS', 30)));
         Passport::personalAccessTokensExpireIn(now()->addMonths(env('PASSPORT_PERSONAL_TOKEN_EXPIRY_MONTHS', 6)));
+        Passport::enablePasswordGrant();
     }
 }

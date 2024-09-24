@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clinic_addresses', function (Blueprint $table) {
+        Schema::create('clinic_service_prices', function (Blueprint $table) {
             $table->id();
+
+            $table->float('price'); // Adjust precision/scale as needed
 
             $table->unsignedBigInteger('clinic_id');
             $table->foreign('clinic_id')
@@ -20,12 +22,11 @@ return new class extends Migration
                 ->on('clinics')
                 ->onDelete('cascade');
 
-            $table->double('longitude');
-            $table->double('latitude');
-
-            $table->string('city')->default('Cebu');
-            $table->string('country')->default('Philippines');
-            $table->string('zip_code')->default('6000')->nullable();
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clinic_addresses');
+        Schema::dropIfExists('clinic_service_prices');
     }
 };

@@ -4,8 +4,8 @@ import Loader from 'components/atoms/Loader';
 import routes from './routes';
 
 function Router() {
-  const AdminLayout = lazy(() => import('templates/Authenticated'));
-  const UserLayout = lazy(() => import('templates/User'));
+  const AuthenticatedLayout = lazy(() => import('templates/Authenticated'));
+  const GuestLayout = lazy(() => import('templates/Guest'));
   const Logout = lazy(() => import('pages/guest/Logout'));
 
   return (
@@ -13,7 +13,11 @@ function Router() {
       <Routes>
         {routes.map((route, i) => {
           const Page = lazy(() => import(`../${route.component}`));
-          const layout = route.auth ? <AdminLayout /> : <UserLayout navbar={route.navbar} />;
+          const layout = route.auth ? (
+            <AuthenticatedLayout />
+          ) : (
+            <GuestLayout navbar={route.navbar} />
+          );
 
           return (
             <Route key={i} element={layout}>

@@ -16,7 +16,13 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('address', 255);
-            $table->string('phone_number')->nullable();
+            $table->string('office_hours');
+            $table->string('is_24_7');
+            $table->string('phone_number');
+            $table->string('logo')->nullable();
+            $table->string('photos')->nullable();
+            $table->string('payment_option_ids');
+            $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->string('description', 255)->nullable();
 

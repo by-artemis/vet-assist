@@ -12,6 +12,6 @@ class ClinicsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Clinic::factory()->count(10)->create(); 
+        Clinic::factory(10)->create(); 
     }
 }

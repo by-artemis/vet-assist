@@ -122,16 +122,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Gets the pets that belong to the user
-     *
-     * @return HasMany
-     */
-    public function pets(): HasMany
-    {
-        return $this->hasMany(Pet::class, 'owner_id');
-    }
-
-    /**
      * Gets the vet clinic favorites that belong to the user
      *
      * @return HasMany
@@ -159,5 +149,15 @@ class User extends Authenticatable
     public function userClinicVisit(): HasOne
     {
         return $this->hasOne(UserClinicVisit::class);
+    }
+
+    /**
+     * Gets the owner details of the user
+     *
+     * @return HasOne
+     */
+    public function owner(): HasOne
+    {
+        return $this->hasOne(Owner::class);
     }
 }

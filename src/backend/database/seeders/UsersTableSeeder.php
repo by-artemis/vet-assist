@@ -29,7 +29,6 @@ class UsersTableSeeder extends Seeder
                 ->times(50)
                 ->has(UserType::factory()->count(1))
                 ->has(UserDetail::factory()->count(1))
-                ->has(Pet::factory()->count(rand(0,3))) // Each user gets 0 to 3 pets randomly
                 ->create([
                     'user_status_id' => $status->id,
                 ])

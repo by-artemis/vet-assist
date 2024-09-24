@@ -16,6 +16,8 @@ class PetDetail extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'age',
+        'birthdate',
         'coat',
         'pattern',
         'weight',

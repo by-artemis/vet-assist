@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\PetController;
+use App\Http\Controllers\API\SpeciesController;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\HomeController;
@@ -73,3 +75,25 @@ Route::get('notifications', [NotificationController::class, 'index']);
 Route::put('notifications/{id}/seen', [NotificationController::class, 'seen']);
 // DEMO PURPOSES ONLY. REMOVE ON ACTUAL PROJECT
 Route::post('notifications/test', [NotificationController::class, 'create']);
+
+
+// Authenticated Routes
+Route::group(['middleware' => ['auth:api']], function () {
+    // Pet
+    Route::group(["prefix" => "pets"], function () {
+        Route::get('/', [PetController::class, 'index']);
+        Route::post('/', [PetController::class, 'store']);
+        Route::put('/{id}', [PetController::class, 'update']);
+        Route::delete('{id}', [PetController::class, 'delete']);
+        Route::delete('/force/{id}', [PetController::class, 'deleteForce']);
+    });
+
+    // Species
+    Route::group(["prefix" => "species"], function () {
+        Route::get('/', [SpeciesController::class, 'index']);
+        // Route::post('/', [PetController::class, 'store']);
+        // Route::put('/{id}', [PetController::class, 'update']);
+        // Route::delete('{id}', [PetController::class, 'delete']);
+        // Route::delete('/force/{id}', [PetController::class, 'deleteForce']);
+    });
+});

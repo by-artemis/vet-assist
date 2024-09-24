@@ -20,6 +20,8 @@ return new class extends Migration
                 ->on('pets')
                 ->onDelete('cascade');
 
+            $table->string('age');
+            $table->date('birthdate');
             $table->string('coat')->nullable()->comment("The pet's distinct fur color");
             $table->string('pattern')->nullable()->comment("The pet's distinct fur pattern");
 

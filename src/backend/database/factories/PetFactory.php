@@ -22,24 +22,23 @@ class PetFactory extends Factory
     {
         $species = ['cat', 'dog', 'rabbit', 'hamster', 'guinea pig', 'bird', 'fish'];
         $breeds = [
-            'cat' => ['Local Puspin', 'Siamese', 'Persian', 'Maine Coon', 'British Shorthair'],
-            'dog' => ['Labrador Retriever', 'German Shepherd', 'Golden Retriever', 'Poodle'],
+            'cat' => ['Local Puspin', 'Siamese', 'Persian', 'Maine Coon', 'British Shorthair', 'Sphynx'],
+            'dog' => ['Labrador Retriever', 'Labrador', 'Chihuahua', 'German Shepherd', 'Golden Retriever', 'Poodle', 'Shih tzu'],
             'rabbit' => ['Dutch', 'Lionhead', 'Harlequin', 'Mini Rex'],
             'hamster' => ['Syrian', 'Dwarf Campbell', 'Dwarf Winter White', 'Roborovski'],
             'guinea pig' => ['American', 'Abyssinian', 'Peruvian', 'Texel'],
-            'bird' => ['Budgerigar', 'Cockatiel', 'Canary', 'Lovebird'],
+            'bird' => ['Budgerigar', 'Cockatiel', 'Canary', 'Lovebird', 'Parrot'],
             'fish' => ['Goldfish', 'Betta', 'Guppy', 'Tetra'],
         ];
 
         $selectedSpecies = fake()->randomElement($species);
 
-        
         return [
             'name' => fake()->firstName(),
-            'birthdate' => fake()->dateTimeBetween('-10 years', '-1 year'),
             'gender' => fake()->randomElement(['male', 'female']),
             'species' => $selectedSpecies,
             'breed' => fake()->randomElement($breeds[$selectedSpecies]),
+            'photo' => fake()->optional()->imageUrl(),
             'is_microchipped' => fake()->boolean(),
         ];
     }

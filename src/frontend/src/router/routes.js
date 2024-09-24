@@ -1,4 +1,5 @@
 import admin from './admin';
+import customer from './customer';
 
 const routes = [
   // Dont Remove. Handle 404 Pages
@@ -68,6 +69,7 @@ const routes = [
     auth: false,
   },
   ...admin,
+  ...customer,
 ];
 
 // Don't include styleguide in production routes

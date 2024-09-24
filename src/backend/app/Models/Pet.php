@@ -19,10 +19,10 @@ class Pet extends Model
      */
     protected $fillable = [
         'name',
-        'birthdate',
         'gender',
         'species',
         'breed',
+        'photo',
         'is_microchipped',
     ];
 
@@ -33,7 +33,7 @@ class Pet extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Owner;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -38,5 +40,18 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->owner()->create([
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'address' => $user->userDetail->address,
+                'phone_number' => $user->userDetail->phone_number,
+            ]);
+        });
     }
 }
