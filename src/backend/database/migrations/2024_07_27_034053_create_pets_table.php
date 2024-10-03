@@ -22,10 +22,12 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('gender');
-            $table->string('species');
+            $table->unsignedInteger('species');
             $table->string('breed')->nullable();
             $table->string('photo')->nullable();
-            $table->boolean('is_microchipped')->default(0);
+            $table->boolean('is_microchipped')
+                ->nullable()
+                ->default(0);
 
             $table->timestamps();
             $table->softDeletes();

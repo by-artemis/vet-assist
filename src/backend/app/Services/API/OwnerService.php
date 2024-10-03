@@ -19,23 +19,23 @@ use App\Exceptions\UserNotFoundException;
 use App\Exceptions\UserNotCreatedException;
 use App\Exceptions\ActivationTokenNotFoundException;
 
-class UserService
+class OwnerService
 {
     use Uploadable;
 
     /**
-     * @var App\Models\User
+     * @var App\Models\Owner
      */
-    protected $user;
+    protected $owner;
 
     /**
      * UserService constructor.
      *
-     * @param App\Models\User $user
+     * @param App\Models\Owner $owner
      */
-    public function __construct(User $user)
+    public function __construct(Owner $owner)
     {
-        $this->user = $user;
+        $this->owner = $owner;
     }
 
     /**

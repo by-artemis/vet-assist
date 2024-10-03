@@ -1,9 +1,39 @@
 import api from 'utils/api';
 
 const getSpecies = async (query) => {
-  const req = api.get(`/species?${new URLSearchParams(query).toString()}`).then(({ data }) => data);
-  const { meta, data } = await req;
-  return { meta, data };
+  try {
+    const req = api
+      .get(`/species?${new URLSearchParams(query).toString()}`)
+      .then(({ data }) => data);
+    const { meta, data } = await req;
+    return { meta, data };
+  } catch (error) {
+    console.error('Error fetching species. E: ', error);
+    return { meta: null, data: [] };
+  }
+};
+
+const getSpeciesIds = async (query) => {
+  try {
+    const response = await api.get(`/species?${new URLSearchParams(query).toString()}`);
+    const { meta, data } = response.data;
+
+    // Transform the data for Select component
+    const selectOptions = data.map((species) => ({
+      value: species.id, // Assuming your API returns 'id'
+      label: species.name, // Assuming your API returns 'name'
+    }));
+
+    return { meta, data: selectOptions };
+  } catch (error) {
+    console.error('Error fetching species IDs. E: ', error);
+    return { meta: null, data: [] };
+  }
+};
+
+const retrieveSpecies = async (id) => {
+  const req = await api.get(`/species/${id}`).then(({ data }) => data.data);
+  return req;
 };
 
 // const createSpecie = async (data) => {
@@ -27,4 +57,4 @@ const getSpecies = async (query) => {
 //   return deleted;
 // };
 
-export { getSpecies };
+export { getSpecies, getSpeciesIds, retrieveSpecies };

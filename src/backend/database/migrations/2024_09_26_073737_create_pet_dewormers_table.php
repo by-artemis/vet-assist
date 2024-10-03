@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pet_vaccines', function (Blueprint $table) {
+        Schema::create('pet_dewormers', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('pet_id');
@@ -26,10 +26,10 @@ return new class extends Migration
                 ->on('clinics')
                 ->onDelete('cascade');
 
-            $table->string('vaccine')
-                ->comment("The vaccine's name given to the pet")
+            $table->string('dewormer')
+                ->comment("The dewormer's name given to the pet")
                 ->nullable();
-            $table->date('last_vaccinated_at')
+            $table->date('last_dewormed_at')
                 ->nullable();
 
             $table->timestamps();
@@ -42,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pet_vaccines');
+        Schema::dropIfExists('pet_dewormers');
     }
 };

@@ -22,11 +22,18 @@ return new class extends Migration
 
             $table->string('age');
             $table->date('birthdate');
-            $table->string('coat')->nullable()->comment("The pet's distinct fur color");
-            $table->string('pattern')->nullable()->comment("The pet's distinct fur pattern");
 
-            $table->double('weight');
-            $table->dateTime('last_weighed_at');
+            $table->string('coat')
+                ->comment("The pet's distinct fur color")
+                ->nullable();
+            $table->string('pattern')
+                ->comment("The pet's distinct fur pattern")
+                ->nullable();
+
+            $table->double('weight')
+                ->nullable();
+            $table->date('last_weighed_at')
+                ->nullable();
 
             $table->boolean('is_disabled')->default(0);
             

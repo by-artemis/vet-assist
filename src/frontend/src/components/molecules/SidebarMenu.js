@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -40,12 +40,16 @@ const links = [
 
 function SidebarMenu() {
   const location = useLocation();
-  const { t } = useTranslation();
-  const localizeLinks = [...links];
+  let localizeLinks = [...links];
+  const user = useSelector((state) => state.profile.user);
+  const { role } = user;
 
   // add localization to menu items
   localizeLinks.map((link) => {
-    link.label = t(`menu.${link.path.replace('/admin/', '')}`);
+    if (link.path.includes('admin') && role !== 'System Admin') {
+      localizeLinks = localizeLinks.filter((item) => item !== link);
+    }
+    // link.label = t(`menu.${link.path.replace('/admin/', '')}`);
     return link;
   });
 

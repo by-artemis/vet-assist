@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\Pet\CreatePetRequest;
-use App\Http\Requests\API\Pet\SearchPetRequest;
-use App\Http\Resources\PetResource;
+use App\Http\Requests\API\Pet\UpdatePetRequest;
 use Exception;
 use Illuminate\Http\Request;
 use App\Services\API\PetService;
+use App\Http\Resources\PetResource;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\Pet\CreatePetRequest;
+use App\Http\Requests\API\Pet\SearchPetRequest;
 
 class PetController extends Controller
 {
@@ -60,8 +61,20 @@ class PetController extends Controller
     // Create a new pet profile
     public function store(CreatePetRequest $request)
     {
+        $request->validated();
+        
         try {
-            $pet = $this->petService->create($request->validated());
+            $formData = [
+                'name' => $request->getName(),
+                'gender' => $request->getGender(),
+                'species' => $request->getSpecies(),
+                'breed' => $request->getBreed(),
+                'photo' => $request->getPhoto(),
+                'is_microchipped' => $request->getIsMicrochipped(),
+                'owner_id' => $request->getOwnerId(),
+            ];
+
+            $pet = $this->petService->create($formData);
             $this->response['data'] = new PetResource($pet);
         } catch (Exception $e) { // @codeCoverageIgnoreStart
             $this->response = [
@@ -73,28 +86,62 @@ class PetController extends Controller
         return response()->json($this->response, $this->response['code']);
     }
 
-    // Update an existing pet profile
-    public function update(Request $request, $id)
+    // Retrieve a pet profile
+    public function read($id)
     {
         try {
-            $pet = auth()->user()->pets()->findOrFail($id); // Find the pet belonging to the user
+            $pet = $this->petService->findById((int) $id);
+            $this->response['data'] = new PetResource($pet);
+        } catch (Exception $e) {
+            $this->response = [
+                'error' => $e->getMessage(),
+                'code' => 500,
+            ];
+        }
 
-            $validator = Validator::make($request->all(), [
-                'name' => 'sometimes|string',
-                'gender' => 'sometimes|in:male,female',
-                // ... other fields with validation rules ...
-            ]);
+        return response()->json($this->response, $this->response['code']);
+    }
 
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
+    // Update an existing pet profile
+    public function update(UpdatePetRequest $request)
+    {
+        $request->validated();
+        
+        try {
+            $formData = [
+                'id' => $request->getId(),
+                'name' => $request->getName(),
+                'gender' => $request->getGender(),
+                'species' => $request->getSpecies(),
+                'breed' => $request->getBreed(),
+                'photo' => $request->getPhoto(),
+                'is_microchipped' => $request->getIsMicrochipped(),
+                'owner_id' => $request->getOwnerId(),
+            ];
+
+            if ($request->has('details')) {
+                $formData['details'] = [
+                    'age' => $request->getAge(),
+                    'birthdate' => $request->getBirthdate(),
+                    'coat' => $request->getCoat(),
+                    'pattern' => $request->getPattern(),
+                    'weight' => $request->getWeight(),
+                    'last_weighed_at' => $request->getLastWeighedAt(),
+                    'is_disabled' => $request->getIsDisabled(),
+                ];
             }
 
-            $pet->update($request->all()); // Update the pet
+            if ($request->has('vaccines')) {
+                $formData['vaccines'] = $request->get('vaccines');
+            }
 
-            // Update related pet details and vaccines if needed
+            if ($request->has('dewormers')) {
+                $formData['dewormers'] = $request->get('dewormers');
+            }
+            // dd($formData);
 
-            return response()->json(['message' => 'Pet profile updated successfully', 'pet' => $pet]);
-
+            $pet = $this->petService->update($formData);
+            $this->response['data'] = new PetResource($pet);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Pet not found'], 404);
         }

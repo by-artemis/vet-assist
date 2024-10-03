@@ -1,5 +1,6 @@
 import admin from './admin';
 import customer from './customer';
+import { ROUTE_PATH } from './route-path';
 
 const routes = [
   // Dont Remove. Handle 404 Pages
@@ -67,6 +68,32 @@ const routes = [
     path: '/privacy-policy',
     component: 'pages/guest/PrivacyPolicy',
     auth: false,
+  },
+  {
+    path: ROUTE_PATH.orderManagement,
+    component: 'pages/authenticated/Dashboard',
+    auth: true,
+  },
+  // Pets
+  {
+    path: ROUTE_PATH.petIndex,
+    component: 'pages/authenticated/Pet/Index',
+    auth: true,
+  },
+  {
+    path: ROUTE_PATH.petCreate,
+    component: 'pages/authenticated/Pet/Create',
+    auth: true,
+  },
+  {
+    path: ROUTE_PATH.petEdit,
+    component: 'pages/authenticated/Pet/Edit',
+    auth: true,
+  },
+  {
+    path: ROUTE_PATH.petView,
+    component: 'pages/authenticated/Pet/View',
+    auth: true,
   },
   ...admin,
   ...customer,

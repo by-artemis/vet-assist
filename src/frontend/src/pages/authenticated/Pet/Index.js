@@ -1,24 +1,28 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { deletePet, retrievePet, searchPets } from 'services/pet.service';
 import Box from '@mui/material/Box';
 import DataTable from 'components/molecules/DataTable';
-import AddEditModal from 'components/molecules/pets/AddEditModal';
 import { criteria, meta as defaultMeta } from 'config/search';
 
 function Index() {
   const { t } = useTranslation();
   const [data, setData] = useState([]);
-  const [pet, setPet] = useState(null);
   const [query, setQuery] = useState(criteria);
   const [meta, setMeta] = useState(defaultMeta);
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const fetchPets = async () => {
     const { meta, data } = await searchPets(query);
-    setMeta({ ...meta, meta });
-    setData(data);
+    const transformedData = data.map((pet) => ({
+      ...pet,
+      is_microchipped: pet.is_microchipped ? 'Yes' : 'No',
+    }));
+
+    setMeta({ ...meta, meta }); // This line seems redundant, you might want to check it
+    setData(transformedData); // Set the transformed data to your state
   };
 
   useEffect(() => {
@@ -72,8 +76,7 @@ function Index() {
 
   const handleEdit = async (id) => {
     const pet = await retrievePet(id);
-    setOpen(true);
-    setPet(pet);
+    navigate(`/pets/edit/${id}`, { state: { pet: pet } });
   };
 
   const handleDelete = async (id) => {
@@ -85,27 +88,7 @@ function Index() {
   };
 
   const handleAdd = () => {
-    setPet(null);
-    setOpen(true);
-  };
-
-  const handleSaveEvent = (response) => {
-    if (!pet) {
-      fetchPets();
-      setOpen(false);
-      toast("Pet created successfully!", { type: 'success' });
-      return;
-    }
-
-    let updatedList = [...data];
-    const index = updatedList.findIndex((row) => parseInt(row.id) === parseInt(response.id));
-
-    updatedList[index] = response;
-
-    setData(updatedList);
-    setOpen(false);
-
-    toast(t('pages.users.user_updated'), { type: 'success' });
+    navigate(`/pets/create`);
   };
 
   return (
@@ -124,13 +107,12 @@ function Index() {
         handleDelete={handleDelete}
         handleAdd={handleAdd}
       />
-
-      <AddEditModal
+      {/* <AddEditModal
         open={open}
         pet={pet}
         handleSaveEvent={handleSaveEvent}
         handleClose={() => setOpen(false)}
-      />
+      /> */}
     </Box>
   );
 }

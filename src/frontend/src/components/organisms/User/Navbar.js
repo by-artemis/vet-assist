@@ -42,6 +42,7 @@ function Navbar(props) {
 
   const links = [
     { label: t('menu.profile'), url: '/profile' },
+    { label: t('menu.my_pets'), url: '/pets' },
     { label: t('menu.logout'), url: '/logout' },
   ];
 
@@ -68,14 +69,13 @@ function Navbar(props) {
           <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-  
+
           <LanguageSelect />
-  
+
           <NotificationIcon user={user} darkMode={true} />
           <AvatarNavDropdown user={user} links={links} />
-          
         </Toolbar>
-        )}
+      )}
     </AppBar>
   );
 }

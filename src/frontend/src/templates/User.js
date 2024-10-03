@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { logout } from 'services/auth';
 import { setProfile } from 'store/slices/profileSlice';
-import { Box } from '@mui/material';
+import { Box, Container, Toolbar } from '@mui/material';
 import Footer from 'components/organisms/User/Footer';
 import Navbar from 'components/organisms/User/Navbar';
+import Sidebar from 'components/organisms/User/Sidebar';
 import api from 'utils/api';
 
 export default function User() {
@@ -40,22 +41,30 @@ export default function User() {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Box sx={{ display: 'flex', width: '100%' }}>
       <Navbar open={open} onToggle={toggleDrawer} onLogout={() => handleLogout()} user={user} />
+
+      <Sidebar open={open} onToggle={toggleDrawer} />
 
       <Box
         component="main"
         sx={{
           backgroundColor: (theme) =>
             theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
-          pb: 8,
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
           minHeight: 'calc(100vh - 313px)',
         }}
       >
-        <Outlet />
-      </Box>
+        <Toolbar />
 
-      <Footer />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Outlet />
+
+          <Footer />
+        </Container>
+      </Box>
     </Box>
   );
 }

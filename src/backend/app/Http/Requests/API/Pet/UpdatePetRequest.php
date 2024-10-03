@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\Pet;
 use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePetRequest extends FormRequest
+class UpdatePetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -97,36 +97,36 @@ class CreatePetRequest extends FormRequest
 
     public function getAge(): string
     {
-        return $this->input('age');
+        return $this->input('details.age');
     }
     
     public function getBirthdate(): string
     {
-        return $this->input('birthdate');
+        return $this->input('details.birthdate');
     }
 
     public function getCoat(): string
     {
-        return $this->input('coat');
+        return $this->input('details.coat');
     }
 
     public function getPattern(): string
     {
-        return $this->input('pattern');
+        return $this->input('details.pattern');
     }
 
     public function getWeight(): string
     {
-        return $this->input('weight');
+        return $this->input('details.weight');
     }
 
     public function getLastWeighedAt(): string
     {
-        return $this->input('last_weighed_at');
+        return $this->input('details.last_weighed_at');
     }
 
     public function getIsDisabled(): int
     {
-        return $this->input('is_disabled');
+        return $this->input('details.is_disabled');
     }
 }

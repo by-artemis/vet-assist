@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\API\PetController;
-use App\Http\Controllers\API\SpeciesController;
-use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\PetController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ClinicController;
 use App\Http\Controllers\API\InquiryController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\SpeciesController;
 use App\Http\Controllers\API\Auth\TokenController;
 use App\Http\Controllers\API\PermissionController;
 use App\Http\Controllers\API\NotificationController;
@@ -79,11 +79,12 @@ Route::post('notifications/test', [NotificationController::class, 'create']);
 
 // Authenticated Routes
 Route::group(['middleware' => ['auth:api']], function () {
-    // Pet
+    // Pets
     Route::group(["prefix" => "pets"], function () {
         Route::get('/', [PetController::class, 'index']);
         Route::post('/', [PetController::class, 'store']);
-        Route::put('/{id}', [PetController::class, 'update']);
+        Route::get('{id}', [PetController::class, 'read']);
+        Route::patch('/{id}', [PetController::class, 'update']);
         Route::delete('{id}', [PetController::class, 'delete']);
         Route::delete('/force/{id}', [PetController::class, 'deleteForce']);
     });
@@ -91,9 +92,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     // Species
     Route::group(["prefix" => "species"], function () {
         Route::get('/', [SpeciesController::class, 'index']);
-        // Route::post('/', [PetController::class, 'store']);
-        // Route::put('/{id}', [PetController::class, 'update']);
-        // Route::delete('{id}', [PetController::class, 'delete']);
-        // Route::delete('/force/{id}', [PetController::class, 'deleteForce']);
+        Route::get('{id}', [SpeciesController::class, 'read']);
+    });
+
+    // Clinics
+    Route::group(["prefix" => "clinics"], function () {
+        Route::get('/', [ClinicController::class, 'index']);
+        Route::get('{id}', [ClinicController::class, 'read']);
+        // Route::post('/', [ClinicController::class, 'store']);
+        // Route::patch('/{id}', [ClinicController::class, 'update']);
+        // Route::delete('{id}', [ClinicController::class, 'delete']);
+        // Route::delete('/force/{id}', [ClinicController::class, 'deleteForce']);
     });
 });

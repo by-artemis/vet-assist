@@ -111,8 +111,9 @@ const en = {
         failed_message: 'The update failed.',
       },
       landing: {
-        main_heading: 'Welcome to React Base Template!',
-        sub_heading: 'A lightweight boilerplate about the development of a React project.',
+        main_heading: 'Welcome to Vet Assist!',
+        sub_heading:
+          "Vet Assist aims to empower pet owners to make informed decisions about their pet's healthcare, fostering a stronger bond between pets and their human companions.",
         why_heading: 'Why use Base Template?',
         docker: {
           heading: 'Flexible Environment',
@@ -184,6 +185,8 @@ const en = {
       styleguide: 'Styleguide',
       roles: 'Roles',
       broadcast: 'Broadcast',
+      pets: 'Pets',
+      my_pets: 'My Pets',
     },
     table: {
       no_data: 'No data.',

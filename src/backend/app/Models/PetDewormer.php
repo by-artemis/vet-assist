@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PetVaccine extends Model
+class PetDewormer extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,8 @@ class PetVaccine extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'vaccine',
-        'last_vaccinated_at',
+        'dewormer',
+        'last_dewormed_at',
         'clinic_id',
     ];
 

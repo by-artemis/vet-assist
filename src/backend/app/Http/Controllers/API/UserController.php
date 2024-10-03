@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use Illuminate\Http\Request;
 use App\Services\API\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;

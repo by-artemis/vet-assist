@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\SpeciesResource;
 use Exception;
+use App\Services\API\ClinicService;
 use App\Http\Controllers\Controller;
-use App\Services\API\SpeciesService;
-use App\Http\Requests\API\Species\SearchSpeciesRequest;
+use App\Http\Resources\ClinicResource;
+use App\Http\Requests\API\Clinic\SearchClinicRequest;
 
-class SpeciesController extends Controller
+class ClinicController extends Controller
 {
-    /** @var SpeciesService */
-    protected $speciesService;
+    /** @var ClinicService */
+    protected $clinicService;
 
     /**
      * PetController constructor.
      *
-     * @param SpeciesService $speciesService
+     * @param ClinicService $clinicService
      */
-    public function __construct(SpeciesService $speciesService)
+    public function __construct(ClinicService $clinicService)
     {
         parent::__construct();
 
-        $this->speciesService = $speciesService;
+        $this->clinicService = $clinicService;
     }
-   
-    public function index(SearchSpeciesRequest $request)
+
+    public function index(SearchClinicRequest $request)
     {
         $request->validated();
 
@@ -38,7 +38,7 @@ class SpeciesController extends Controller
                 'sort' => $request->getSort(),
             ];
 
-            $results = $this->speciesService->search($conditions);
+            $results = $this->clinicService->search($conditions);
             $this->response = array_merge($results, $this->response);
         } catch (Exception $e) { // @codeCoverageIgnoreStart
             $this->response = [
@@ -50,12 +50,12 @@ class SpeciesController extends Controller
         return response()->json($this->response, $this->response['code']);
     }
 
-    // Retrieve a species
+    // Retrieve a clinics
     public function read($id)
     {
         try {
-            $species = $this->speciesService->findById((int) $id);
-            $this->response['data'] = new SpeciesResource($species);
+            $species = $this->clinicService->findById((int) $id);
+            $this->response['data'] = new ClinicResource($species);
         } catch (Exception $e) {
             $this->response = [
                 'error' => $e->getMessage(),

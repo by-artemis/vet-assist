@@ -24,6 +24,7 @@ class Pet extends Model
         'breed',
         'photo',
         'is_microchipped',
+        'owner_id',
     ];
 
     /**
@@ -54,6 +55,16 @@ class Pet extends Model
     public function vaccines(): HasMany
     {
         return $this->hasMany(PetVaccine::class);
+    }
+
+     /**
+     * Gets the dewormers of the pet
+     *
+     * @return HasMany
+     */
+    public function dewormers(): HasMany
+    {
+        return $this->hasMany(PetDewormer::class);
     }
 
     /**

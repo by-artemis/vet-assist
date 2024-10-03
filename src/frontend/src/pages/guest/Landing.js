@@ -58,8 +58,8 @@ function Landing() {
   return (
     <>
       <Seo
-        title="Sprobe Base Template"
-        description="This is a boilerplate for React + Laravel Applications."
+        title={process.env.REACT_APP_SITE_TITLE}
+        description={t('pages.landing.sub_heading')}
         image="http://test.com/"
       />
 

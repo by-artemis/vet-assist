@@ -62,7 +62,11 @@ const DatePicker = React.forwardRef(function DatePicker(props, ref) {
         value={value}
         inputFormat={hasTime ? `${format} hh:mm` : format}
         onChange={onChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => {
+          // eslint-disable-next-line no-unused-vars
+          const { error: inputError, ...rest } = params;
+          return <TextField error={error} helperText={helperText} {...rest} />;
+        }}
       />
     );
   };

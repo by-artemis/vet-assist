@@ -5,12 +5,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { createPet, updatePet } from 'services/pet.service';
-import { getSpecies } from 'services/species.service';
+import { getSpeciesIds } from 'services/species.service';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import Button from 'components/atoms/Button';
-import RadioGroup from 'components/atoms/Form/RadioGroup';
 import Select from 'components/atoms/Form/Select';
 import TextField from 'components/atoms/Form/TextField';
 import Modal from 'components/organisms/Modal';
@@ -29,7 +31,7 @@ export default function AddEditModal(props) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(null);
-  const [species, setSpecies] = useState([]);
+  const [speciesOptions, setSpeciesOptions] = useState([]);
 
   // form validation
   const schema = yup.object({
@@ -39,6 +41,10 @@ export default function AddEditModal(props) {
     breed: yup.string().required(t('form.required')),
     is_microchipped: yup.string().required(t('form.required')),
   });
+
+  const defaultValues = {
+    is_microchipped: 0,
+  };
 
   const {
     register,
@@ -51,7 +57,13 @@ export default function AddEditModal(props) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
+    defaultValues: {
+      ...defaultValues,
+    },
   });
+
+  const [isMicrochipped, setIsMicrochipped] = useState(defaultValues.is_microchipped);
 
   useEffect(() => {
     setLoading(false);
@@ -71,6 +83,8 @@ export default function AddEditModal(props) {
       setValue('species', pet.species);
       setValue('breed', pet.breed);
       setValue('is_microchipped', pet.is_microchipped);
+
+      setIsMicrochipped(pet.is_microchipped);
     }
   }, [pet]);
 
@@ -80,18 +94,18 @@ export default function AddEditModal(props) {
   }, [open]);
 
   const fetchSpecies = async () => {
-    const { data } = await getSpecies();
-    setSpecies(() =>
-      data.map((specie) => ({
-        label: specie.name,
-        value: specie.name,
-      }))
-    );
+    const { data } = await getSpeciesIds();
+    setSpeciesOptions(data);
+  };
+
+  const handleRadioGroupOnChange = (e) => {
+    const { value } = e.target;
+    setIsMicrochipped(value);
+    setValue('is_microchipped', value);
   };
 
   const handleFormSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
 
     try {
       const response = pet ? await updatePet(pet.id, data) : await createPet(data);
@@ -138,7 +152,10 @@ export default function AddEditModal(props) {
               <Controller
                 name="species"
                 control={control}
-                render={({ field }) => <Select {...field} label={'Species'} options={species} />}
+                defaultValue={''}
+                render={({ field }) => (
+                  <Select {...field} label={'Species'} options={speciesOptions} />
+                )}
               />
             </Grid>
             <Grid item md={12}>
@@ -155,19 +172,16 @@ export default function AddEditModal(props) {
             </Grid>
             <Grid item md={12}>
               <RadioGroup
-                label="Is Microchipped?"
-                options={[
-                  { label: 'Yes', value: 'Yes' },
-                  { label: 'No', value: 'No' },
-                ]}
-                inline={true}
+                row
                 {...register('is_microchipped')}
-                error={errors && errors.is_microchipped ? true : false}
-                helperText={errors ? errors?.is_microchipped?.message : null}
-              />
+                value={isMicrochipped}
+                onChange={handleRadioGroupOnChange}
+              >
+                <FormControlLabel value={1} control={<Radio />} label="Yes" />
+                <FormControlLabel value={0} control={<Radio />} label="No" />
+              </RadioGroup>
             </Grid>
           </Grid>
-
           <Box sx={{ width: '100%', display: 'flex', justifyContent: 'end', px: 2, pb: 2, gap: 1 }}>
             <Button onClick={handleClose} variant="outlined" disabled={loading}>
               {t('labels.cancel')}

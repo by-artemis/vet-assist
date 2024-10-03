@@ -4,18 +4,18 @@ namespace App\Services\API;
 
 use DB;
 use Exception;
-use App\Models\Species;
-use App\Http\Resources\SpeciesResource;
-use App\Exceptions\SpeciesNotFoundException;
+use App\Models\Clinic;
+use App\Http\Resources\ClinicResource;
+use App\Exceptions\ClinicNotFoundException;
 
-class SpeciesService
+class ClinicService
 {
-    /** @var \App\Models\Species */
-    protected $species;
+    /** @var \App\Models\Clinic */
+    protected $clinic;
 
-    public function __construct(Species $species)
+    public function __construct(Clinic $clinic)
     {
-        $this->species = $species;
+        $this->clinic = $clinic;
     }
 
     public function search(array $conditions): array
@@ -35,7 +35,7 @@ class SpeciesService
         $skip = ($page > 1) ? ($page * $limit - $limit) : 0;
 
         // initialize query
-        $query = $this->species;
+        $query = $this->clinic;
 
         // if keyword is provided
         if (array_key_exists('keyword', $conditions)) {
@@ -49,33 +49,33 @@ class SpeciesService
 
         $urlParams = ['keyword' => $conditions['keyword'], 'limit' => $limit];
 
-        return paginated($results, SpeciesResource::class, $page, $urlParams);
+        return paginated($results, ClinicResource::class, $page, $urlParams);
     }
 
-    public function create(array $data): Species
+    public function create(array $data): Clinic
     {
         DB::beginTransaction();
 
         try {
-            $species = $this->species->create($data);
+            $clinic = $this->clinic->create($data);
 
             DB::commit();
 
-            return $species;
+            return $clinic;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;
         }
     }
 
-    public function findById(int $id): Species
+    public function findById(int $id): Clinic
     {
-        $species = $this->species->find($id);
+        $clinic = $this->clinic->find($id);
 
-        if (!($species instanceof Species)) {
-            throw new SpeciesNotFoundException();
+        if (!($clinic instanceof Clinic)) {
+            throw new ClinicNotFoundException();
         }
 
-        return $species;
+        return $clinic;
     }
 }
